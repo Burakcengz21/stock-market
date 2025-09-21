@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stockify • Home</title>
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="Css/style_main.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="Main.html" class="logo">Stockify</a>
+    <nav>
+      <a href="Main.html" class="active">Home</a>
+      <a href="news.html">News</a>
+      <a href="detail.html">Detail</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pro.html">Pro</a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i> Dark
+      </button>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <section class="home">
+      <div class="home-intro">
+        <h1>Welcome <span id="welcome-name">User</span></h1>
+        <p>Track the performance of your favorite coins.</p>
+      </div>
+      <!-- Country Info -->
+      <div style="display:flex;justify-content:center;">
+        <div id="country-info" class="country-info"></div>
+      </div>
+
+      <!-- Popular Coins -->
+      <section class="popular-coins" id="popular-coins-section">
+        <h2>Popular Coins</h2>
+        <div class="cards-grid" id="popular-coins-grid">
+          <!-- JS ile doldurulacak -->
+        </div>
+      </section>
+
+      <!-- Favorites Bölümü -->
+      <section class="favorites" id="favorites-section" style="display:none;">
+        <div class="favorites-intro">
+          <h2>Your Favorites</h2>
+          <p>Latest price, chart and a headline for each.</p>
+        </div>
+        <div id="favorites-container" class="cards-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Stockify • All Rights Reserved</p>
+  </footer>
+
+  <!-- Chart.js & Date Adapter -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+  <!-- Home Logic -->
+  <script src="js/home.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem('stockify_current_user');
+      window.location.href = 'Login-register.html';
+    }
+    
+    // Theme management functions
+    function getCurrentTheme() {
+      return localStorage.getItem('stockify_theme') || 'light';
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('stockify_theme', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+      updateThemeButton(theme);
+    }
+
+    function toggleTheme() {
+      const currentTheme = getCurrentTheme();
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    }
+
+    function updateThemeButton(theme) {
+      const themeBtn = document.querySelector('.theme-toggle');
+      if (themeBtn) {
+        themeBtn.innerHTML = theme === 'light' ? '<i class="fas fa-moon"></i> Dark' : '<i class="fas fa-sun"></i> Light';
+      }
+    }
+
+    // Initialize theme on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = getCurrentTheme();
+      setTheme(savedTheme);
+    });
+  </script>
+</body>
+</html>

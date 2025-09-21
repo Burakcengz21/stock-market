@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stockify • Portfolio</title>
+
+  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-p1Cm8g+YbF9S1AOQJYkmVg+48zOlB+EoK+qBvSi7K1eOAitrh3CU6i5S9XtxWyliOnFfEygREK4eXw3a8B+oleg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+ 
+  <link rel="stylesheet" href="Css/style_main.css"/>
+  <link rel="stylesheet" href="Css/style_portfolio.css"/>
+</head>
+<body>
+
+  
+  <header>
+    <a href="Main.html" class="logo">Stockify</a>
+    <nav>
+      <a href="Main.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="detail.html">Detail</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="pro.html">Pro</a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i> Dark
+      </button>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  
+  <section class="portfolio-hero">
+    <div class="hero-left">
+      <h1>My Portfolio</h1>
+      <div class="total-value">
+        <span class="label">Total Value</span>
+        <span class="value">$111,111.11</span>
+      </div>
+      <div class="today-change up">
+        <i class="fas fa-arrow-up"></i>
+        <span>+$1,245.75 (1.01%) Today</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <button class="btn-primary">Add Funds</button>
+      <button class="btn-outline">Withdraw</button>
+    </div>
+  </section>
+
+  <section class="holdings modern-table">
+    <h2>My Holdings</h2>
+    <div class="table-wrapper">
+      <table class="modern-holdings-table">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Shares</th>
+            <th>Avg Cost</th>
+            <th>Price & Chart</th>
+            <th>Market Value</th>
+            <th>P/L</th>
+            <th>P/L %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JS ile doldurulacak. Her satırda güncel fiyat ve mini grafik olacak. -->
+          <tr class="empty-row"><td colspan="7" style="text-align:center;color:#aaa;padding:2rem;">No holdings yet. Buy stocks from the Detail page!</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <main class="portfolio-page">
+
+    
+    <section class="performance">
+      <h2>Portfolio Performance</h2>
+      <canvas id="performance-chart" height="200"></canvas>
+    </section>
+
+    
+    <section class="portfolio-metrics">
+      <div class="metric-card">
+        <span class="metric-label">Day Change</span>
+        <span class="metric-value up">+1.01%</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Cash Balance</span>
+        <span class="metric-value">$5,000.00</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Buying Power</span>
+        <span class="metric-value">$7,500.00</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Open P/L</span>
+        <span class="metric-value up">+$3,850.20</span>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <footer>
+    <p>© 2025 Stockify • All Rights Reserved</p>
+  </footer>
+
+  
+  <!-- Add Funds / Withdraw Modal -->
+  <div id="funds-modal" class="funds-modal" style="display:none;">
+    <div class="funds-modal-content">
+      <span id="funds-close" class="funds-close">&times;</span>
+      <h2 id="funds-title">Add Funds</h2>
+      <form id="funds-form" onsubmit="return false;">
+        <div>
+          <label>Amount:</label>
+          <input type="number" id="funds-amount" min="1" required />
+        </div>
+        <div id="funds-card-fields">
+          <label>Cardholder Name:</label>
+          <input type="text" id="card-name" required />
+          <label>Card Number:</label>
+          <input type="text" id="card-number" maxlength="19" required />
+          <label>Expiry (MM/YY):</label>
+          <input type="text" id="card-expiry" maxlength="5" required />
+          <label>CVC:</label>
+          <input type="text" id="card-cvc" maxlength="4" required />
+        </div>
+        <button id="funds-confirm" type="submit">Confirm</button>
+      </form>
+    </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem('stockify_current_user');
+      window.location.href = 'Login-register.html';
+    }
+    
+    // Theme management functions
+    function getCurrentTheme() {
+      return localStorage.getItem('stockify_theme') || 'light';
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('stockify_theme', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+      updateThemeButton(theme);
+    }
+
+    function toggleTheme() {
+      const currentTheme = getCurrentTheme();
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    }
+
+    function updateThemeButton(theme) {
+      const themeBtn = document.querySelector('.theme-toggle');
+      if (themeBtn) {
+        themeBtn.innerHTML = theme === 'light' ? '<i class="fas fa-moon"></i> Dark' : '<i class="fas fa-sun"></i> Light';
+      }
+    }
+
+    // Initialize theme on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = getCurrentTheme();
+      setTheme(savedTheme);
+    });
+  </script>
+</body>
+</html>

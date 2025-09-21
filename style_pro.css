@@ -1,0 +1,173 @@
+/* ====================================================
+   PRO PAGE STYLES
+====================================================*/
+
+/* HERO */
+.pro-hero {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  color: #fff;
+  text-align: center;
+  padding: 4rem 5%;
+}
+.pro-hero .hero-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+}
+.pro-hero .hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.pro-hero .btn-primary {
+  background: var(--accent-yellow);
+  color: var(--accent-primary);
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+
+/* FEATURES */
+.pro-features {
+  padding: 3rem 5%;
+}
+.pro-features h2 {
+  text-align: center;
+  color: var(--accent-primary);
+  margin-bottom: 2rem;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 2rem;
+}
+.feature-card {
+  background: var(--bg-secondary);
+  padding: 2rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  transition: transform .2s, box-shadow .2s;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--shadow-medium);
+}
+.feature-card i {
+  color: var(--accent-yellow);
+  margin-bottom: 1rem;
+}
+.feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-primary);
+}
+.feature-card p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+/* PRICING PLANS */
+.pro-plans {
+  padding: 3rem 5%;
+  background: var(--bg-primary);
+}
+.pro-plans h2 {
+  text-align: center;
+  color: var(--accent-primary);
+  margin-bottom: 2rem;
+}
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+  gap: 2rem;
+}
+.plan-card {
+  background: var(--bg-secondary);
+  padding: 2rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  position: relative;
+}
+.plan-card.featured {
+  border: 2px solid var(--accent-yellow);
+}
+.plan-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--accent-primary);
+}
+.plan-card .price {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+.plan-card .price span {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+.plan-card ul {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+.plan-card ul li {
+  margin: 0.5rem 0;
+  color: var(--text-secondary);
+}
+.plan-card .btn-primary,
+.plan-card .btn-outline {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+.plan-card .btn-outline {
+  background: transparent;
+  border: 2px solid var(--accent-primary);
+  color: var(--accent-primary);
+}
+.plan-card .btn-primary {
+  background: var(--accent-primary);
+  color: #fff;
+}
+.plan-card button:hover {
+  opacity: 0.9;
+}
+
+/* TESTIMONIALS */
+.pro-testimonials {
+  padding: 3rem 5%;
+}
+.pro-testimonials h2 {
+  text-align: center;
+  color: var(--accent-primary);
+  margin-bottom: 2rem;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap: 2rem;
+}
+.testimonial {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 4px 12px var(--shadow-light);
+  font-style: italic;
+}
+.testimonial::before {
+  content: """;
+  font-size: 3rem;
+  color: var(--accent-yellow);
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+.testimonial footer {
+  margin-top: 1.5rem;
+  text-align: right;
+  font-style: normal;
+  color: var(--text-secondary);
+}

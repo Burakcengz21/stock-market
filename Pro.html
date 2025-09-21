@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stockify • Pro</title>
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-p1Cm8g+YbF9S1AOQJYkmVg+48zOlB+EoK+qBvSi7K1eOAitrh3CU6i5S9XtxWyliOnFfEygREK4eXw3a8B+oleg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <!-- Ortak stil -->
+  <link rel="stylesheet" href="Css/style_main.css"/>
+  <!-- Pro sayfasına özel stil -->
+  <link rel="stylesheet" href="Css/style_pro.css"/>
+</head>
+<body>
+
+  <!-- HEADER & NAV -->
+  <header>
+    <a href="Main.html" class="logo">Stockify</a>
+    <nav>
+      <a href="Main.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="detail.html">Detail</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pro.html" class="active">Pro</a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i> Dark
+      </button>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="pro-hero">
+    <div class="hero-content">
+      <h1>Go Pro with Stockify</h1>
+      <p>Unlock advanced analytics, real-time alerts, and priority support.</p>
+      <button class="btn-primary">Start Free Trial</button>
+    </div>
+  </section>
+
+  <main class="pro-page">
+
+    <!-- FEATURES GRID -->
+    <section class="pro-features">
+      <h2>Pro Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fas fa-chart-line fa-2x"></i>
+          <h3>Advanced Charts</h3>
+          <p>Multiple indicators, drawing tools, and customizable intervals.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-bell fa-2x"></i>
+          <h3>Real-Time Alerts</h3>
+          <p>Price, volume and news triggers delivered instantly to your device.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-database fa-2x"></i>
+          <h3>Historical Data</h3>
+          <p>Access up to 20 years of intraday and daily data.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-headset fa-2x"></i>
+          <h3>Priority Support</h3>
+          <p>Dedicated support channel and faster response times.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-cogs fa-2x"></i>
+          <h3>API Access</h3>
+          <p>Programmatic access to live and historical data.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING PLANS -->
+    <section class="pro-plans">
+      <h2>Choose Your Plan</h2>
+      <div class="plans-grid">
+        <!-- Basic plan (free) -->
+        <div class="plan-card">
+          <h3>Basic</h3>
+          <p class="price">$0<span>/month</span></p>
+          <ul>
+            <li>Real-time quotes</li>
+            <li>Standard charts</li>
+            <li>Community support</li>
+          </ul>
+          <button class="btn-outline">Current Plan</button>
+        </div>
+        <!-- Pro plan -->
+        <div class="plan-card featured">
+          <h3>Pro</h3>
+          <p class="price">$29<span>/month</span></p>
+          <ul>
+            <li>Advanced charts & indicators</li>
+            <li>Real-time alerts</li>
+            <li>Historical data access</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="btn-primary">Get Pro</button>
+        </div>
+        <!-- Enterprise plan -->
+        <div class="plan-card">
+          <h3>Enterprise</h3>
+          <p class="price">Contact Us</p>
+          <ul>
+            <li>All Pro features</li>
+            <li>Custom API calls</li>
+            <li>Dedicated account manager</li>
+          </ul>
+          <button class="btn-outline">Contact Sales</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="pro-testimonials">
+      <h2>What Our Pro Users Say</h2>
+      <div class="testimonials-grid">
+        <blockquote class="testimonial">
+          <p>"Stockify Pro's real-time alerts saved me thousands—highly recommend!"</p>
+          <footer>— Jane D., Trader</footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p>"The advanced charts help me make quicker, smarter decisions."</p>
+          <footer>— Mark S., Investor</footer>
+        </blockquote>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Stockify • All Rights Reserved</p>
+  </footer>
+
+  <script src="js/lang.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem('stockify_current_user');
+      window.location.href = 'Login-register.html';
+    }
+    
+    // Theme management functions
+    function getCurrentTheme() {
+      return localStorage.getItem('stockify_theme') || 'light';
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('stockify_theme', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+      updateThemeButton(theme);
+    }
+
+    function toggleTheme() {
+      const currentTheme = getCurrentTheme();
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    }
+
+    function updateThemeButton(theme) {
+      const themeBtn = document.querySelector('.theme-toggle');
+      if (themeBtn) {
+        themeBtn.innerHTML = theme === 'light' ? '<i class="fas fa-moon"></i> Dark' : '<i class="fas fa-sun"></i> Light';
+      }
+    }
+
+    // Initialize theme on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = getCurrentTheme();
+      setTheme(savedTheme);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stockify • Detail</title>
+
+  <!-- Google Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <!-- Ortak stil -->
+  <link rel="stylesheet" href="Css/style_main.css"/>
+  <!-- Detail'e özel stil -->
+  <link rel="stylesheet" href="Css/style_detail.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="Main.html" class="logo">Stockify</a>
+    <nav>
+      <a href="Main.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="detail.html" class="active">Detail</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="pro.html">Pro</a>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i> Dark
+      </button>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <!-- HERO + SEARCH -->
+  <section class="detail-hero">
+    <div class="search-bar">
+      <input type="text" id="symbol-input" placeholder="Enter ticker (e.g. AAPL)"/>
+      <button id="search-btn">Search</button>
+    </div>
+    <div class="hero-content">
+      <div class="symbol-block">
+        <i class="fas fa-chart-line fa-3x"></i>
+        <h1>— <span>(—)</span></h1>
+      </div>
+      <div class="price-block">
+        <div class="current-price">— <small>USD</small></div>
+        <button id="fav-btn" class="btn-action">Add to Favorites</button>
+        <button id="buy-btn" class="btn-action" style="background:#4caf50;color:#fff;">Buy</button>
+        <button id="sell-btn" class="btn-action" style="background:#e53935;color:#fff;">Sell</button>
+      </div>
+    </div>
+    <div class="interval-buttons">
+      <button data-interval="1min">1m</button>
+      <button data-interval="5min">5m</button>
+      <button data-interval="15min">15m</button>
+      <button data-interval="1h">1h</button>
+      <button data-interval="1day" class="active">1d</button>
+    </div>
+  </section>
+
+  <main class="detail-page">
+
+    <!-- CHART -->
+    <section class="chart-section">
+      <canvas id="detail-chart" height="500"></canvas>
+    </section>
+
+    <!-- KEY METRICS -->
+    <section class="key-metrics">
+      <div class="metric">
+        <span class="label">Market Cap</span>
+        <span class="value">—</span>
+      </div>
+      <div class="metric">
+        <span class="label">P/E Ratio</span>
+        <span class="value">—</span>
+      </div>
+      <div class="metric">
+        <span class="label">Dividend Yield</span>
+        <span class="value">—</span>
+      </div>
+      <div class="metric">
+        <span class="label">52-Week High</span>
+        <span class="value">—</span>
+      </div>
+      <div class="metric">
+        <span class="label">52-Week Low</span>
+        <span class="value">—</span>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section class="detail-news">
+      <h2>Latest News on —</h2>
+      <div class="news-grid">
+        <!-- js/detail.js ile dinamik doldurulacak -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TRADE MODAL (body'nin hemen içinde, ana içerikten sonra) -->
+  <div id="trade-modal" class="trade-modal" style="display:none;">
+    <div class="trade-modal-content">
+      <span id="trade-close" class="trade-close">&times;</span>
+      <h2 id="trade-title"></h2>
+      <form id="trade-form" onsubmit="return false;">
+        <div>
+          <label>Price: <b id="trade-price">—</b></label>
+        </div>
+        <div>
+          <label>Quantity:</label>
+          <input type="number" id="trade-qty" min="1" value="1" required />
+        </div>
+        <div id="trade-info"></div>
+        <div style="margin:1rem 0;">
+          <label>Total: <b id="trade-total">—</b></label>
+        </div>
+        <button id="trade-confirm" type="submit">Confirm</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Stockify • All Rights Reserved</p>
+  </footer>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Dinamik detay script -->
+  <script src="js/detail.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem('stockify_current_user');
+      window.location.href = 'Login-register.html';
+    }
+    
+    // Theme management functions
+    function getCurrentTheme() {
+      return localStorage.getItem('stockify_theme') || 'light';
+    }
+
+    function setTheme(theme) {
+      localStorage.setItem('stockify_theme', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+      updateThemeButton(theme);
+    }
+
+    function toggleTheme() {
+      const currentTheme = getCurrentTheme();
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    }
+
+    function updateThemeButton(theme) {
+      const themeBtn = document.querySelector('.theme-toggle');
+      if (themeBtn) {
+        themeBtn.innerHTML = theme === 'light' ? '<i class="fas fa-moon"></i> Dark' : '<i class="fas fa-sun"></i> Light';
+      }
+    }
+
+    // Initialize theme on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = getCurrentTheme();
+      setTheme(savedTheme);
+    });
+  </script>
+</body>
+</html>
